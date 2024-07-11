@@ -1,17 +1,23 @@
+import { Carro } from "./carros";
+
 export interface Icarro {
     veiculo: string;
-    marca: string;
-    ano: number;
-    combustivel: string;
-    km: number
+    consumoCombustivel: number; // km/L
+    quantidadeCombustivel: number; // em litros
 
-    andar(): void;
-    obterGasolima(): void;
-    adicionarGasolina(): void;
+
+    andar(distancia: number): void;
+    obterCombustivel(): number;
+    adicionarCombustivel(quantidade: number): void; 
+}
+export interface Icliente {
+    inserirDados(): void
 }
 
-export interface Icliente {
-    inserirDados()
+export interface Igaragem{
+    marca: string;
+    
+
 }
 
 export interface Ipessoa {
@@ -22,5 +28,5 @@ export interface Ipessoa {
     numero_rg: number;
     numero_cpf: number;
     data_de_nascimento: number;
-    magia()
+    magia(): void
 }
