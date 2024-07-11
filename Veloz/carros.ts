@@ -1,34 +1,50 @@
 import { Icarro } from "./interfaces";
 export class Carro implements Icarro {
     veiculo: string;
-    marca: string;
-    ano: number;
-    combustivel: string;
-    km: number;
+    consumoCombustivel: number; // km/L
+    quantidadeCombustivel: number; // em litros
 
-    constructor(veiculo: string, marca: string, ano: number, combustivel: string, km: number) {
-        this.veiculo = veiculo;
-        this.marca = marca;
-        this.ano = ano;
-        this.combustivel = combustivel;
-        this.km = km
+    constructor(veiculo: string, consumoCombustivel: number) {
+        this.veiculo = veiculo
+        this.consumoCombustivel = consumoCombustivel;
+        this.quantidadeCombustivel = 0; // inicialmente vazio
     }
 
-    andar(): void {
-        console.log('oi');
-
+    //Primeiro adiciona o combustivel no caso a quantidade que o carro vai ter de litros 
+    adicionarCombustivel(quantidade: number): void {
+        this.quantidadeCombustivel += quantidade;
     }
-
-
-    obterGasolima(): void {
-
+    //Diz a respeito de quantos KM por distancia 
+    andar(distancia: number): void {
+        const combustivelNecessario = distancia / this.consumoCombustivel;
+        if (combustivelNecessario <= this.quantidadeCombustivel) {
+            this.quantidadeCombustivel -= combustivelNecessario;
+            console.log(`Carro andou ${distancia} km.`);
+        } else {
+            console.log("Não há combustível suficiente para percorrer essa distância.");
+        }
     }
-
-    adicionarGasolina(): void {
-
+    // Retorna o quanto de combustivel sobrou
+    obterCombustivel(): number {
+        return this.quantidadeCombustivel;
     }
 }
 
+// Exemplo de uso:
+let meuCarro = new Carro("Fusca", 10); // consumo de 10 km/L
+
+meuCarro.adicionarCombustivel(50); // adiciona 50 litros de combustível
+
+console.log(`Combustível disponível: ${meuCarro.obterCombustivel()} litros`);
+
+meuCarro.andar(150);
+console.log(`Combustível restante: ${meuCarro.obterCombustivel()} litros`);
+
+meuCarro.andar(200);
+console.log(`Combustível restante: ${meuCarro.obterCombustivel()} litros`);
+
+
+/*
 let carro1 = new Carro("Fusca", "Volkswagen", 1986, "Gasolina", 120000)
 let carro2 = new Carro("Uno", "Fiat", 2001, "Álcool", 150000)
 let carro3 = new Carro("Civic", "Honda", 2024, "Gasolina", 0)
@@ -39,8 +55,4 @@ let carro7 = new Carro("Sandero", "Renault", 2017, "Gasolina", 45000)
 let carro8 = new Carro("Aventador", "Lamborghini", 2020, "Gasolina", 12000)
 let carro9 = new Carro("488 GTB", "Ferrari", 2018, "Gasolina", 20000)
 let carro10 = new Carro("Regera", "Koenigsegg", 2027, "Híbrido", 0)
-
-console.log(carro4);
-carro4.andar()
-carro4.obterGasolima()
-carro4.adicionarGasolina()
+*/
