@@ -27,6 +27,9 @@ export interface Ipessoa {
     nome_da_mae: string;
     numero_rg: number;
     numero_cpf: number;
+    ano_de_nascimento: number;
+    magia(): void
+}
     data_de_nascimento: number;
     magia(): void
 }
